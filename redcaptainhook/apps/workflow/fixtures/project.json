@@ -1,0 +1,132 @@
+[
+  {
+    "model": "workflow.Project",
+    "pk": 1,
+    "fields": {
+      "name": "NF",
+      "site": "vanderbilt",
+      "redcap_pid": 1330,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 2,
+    "fields": {
+      "name": "LERDP1",
+      "site": "vanderbilt",
+      "redcap_pid": 7123,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 3,
+    "fields": {
+      "name": "RCV",
+      "site": "vanderbilt",
+      "redcap_pid": 8070,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 4,
+    "fields": {
+      "name": "RCLMS",
+      "site": "vanderbilt",
+      "redcap_pid": 9257,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 5,
+    "fields": {
+      "name": "NPR",
+      "site": "vanderbilt",
+      "redcap_pid": 9259,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 6,
+    "fields": {
+      "name": "LERDP2DDE",
+      "site": "vanderbilt",
+      "redcap_pid": 10979,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 7,
+    "fields": {
+      "name": "LERDP2Imaging",
+      "site": "vanderbilt",
+      "redcap_pid": 13529,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 8,
+    "fields": {
+      "name": "Morphology",
+      "site": "vanderbilt",
+      "redcap_pid": 13657,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 9,
+    "fields": {
+      "name": "ParentPaperwork",
+      "site": "vanderbilt",
+      "redcap_pid": 13883,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 10,
+    "fields": {
+      "name": "LERDP2Main",
+      "site": "vanderbilt",
+      "redcap_pid": 14707,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 11,
+    "fields": {
+      "name": "RC Passages",
+      "site": "vanderbilt",
+      "redcap_pid": 16344,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 12,
+    "fields": {
+      "name": "RC TSE",
+      "site": "vanderbilt",
+      "redcap_pid": 17106,
+      "hash": "foobarbat"
+    }
+  },
+  {
+    "model": "workflow.Project",
+    "pk": 13,
+    "fields": {
+      "name": "Adult TSE",
+      "site": "vanderbilt",
+      "redcap_pid": 18776,
+      "hash": "foobarbat"
+    }
+  }
+]

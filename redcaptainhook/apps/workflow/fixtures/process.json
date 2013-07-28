@@ -1,0 +1,110 @@
+[
+  {
+    "model": "workflow.Process",
+    "pk": 1,
+    "fields": {
+      "name" : "MorphologyProcess",
+      "fname" : "workflows.morphology.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 2,
+    "fields": {
+      "name" : "PassagesTimesProcess",
+      "fname" : "workflows.passage_times.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 3,
+    "fields": {
+      "name" : "PassageQuestionsProcess",
+      "fname" : "workflows.passage_questions.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 4,
+    "fields": {
+      "name" : "ADHDProcess",
+      "fname" : "workflows.adhd.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 5,
+    "fields": {
+      "name" : "ScreeningDataProcess",
+      "fname" : "workflows.screening_date.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 6,
+    "fields": {
+      "name" : "ReporterProcess",
+      "fname" : "reporter.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 7,
+    "fields": {
+      "name" : "HollingsheadProcess",
+      "fname" : "hollingshead.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 8,
+    "fields": {
+      "name" : "DupaulProcess",
+      "fname" : "dupaul.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 9,
+    "fields": {
+      "name" : "Eprime2RedcapProcess",
+      "fname" : "ep2rc.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 10,
+    "fields": {
+      "name" : "XeroxProcess",
+      "fname" : "workflows.xerox.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 11,
+    "fields": {
+      "name" : "ScreendoorProcess",
+      "fname" : "workflows.screendoor.switchboard_fxn",
+      "qname" : "default"
+    }
+  },
+  {
+    "model": "workflow.Process",
+    "pk": 12,
+    "fields": {
+      "name" : "RosieSessionRefreshProcess",
+      "fname" : "workflows.rosie.refresh_sessions",
+      "qname" : "default"
+    }
+  }
+]

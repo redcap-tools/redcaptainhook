@@ -1,0 +1,242 @@
+[
+  {
+    "model": "workflow.Trigger",
+    "pk": 1,
+    "fields": {
+      "status": 2,
+      "form": "morphology_new",
+      "project": 8,
+      "processes": [1]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 2,
+    "fields": {
+      "status": 2,
+      "form": "checklist_survey",
+      "project": 11,
+      "processes": [2, 3]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 3,
+    "fields": {
+      "status": 2,
+      "form": "rating_scales",
+      "project": 1,
+      "processes": [4]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 4,
+    "fields": {
+      "status": 2,
+      "form": "checklist_survey",
+      "project": 2,
+      "processes": [4]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 5,
+    "fields": {
+      "status": 2,
+      "form": "checklist_survey",
+      "project": 3,
+      "processes": [4]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 6,
+    "fields": {
+      "status": 2,
+      "form": "checklist_survey",
+      "project": 10,
+      "processes": [4]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 7,
+    "fields": {
+      "status": 2,
+      "form": "checklist_survey",
+      "project": 11,
+      "processes": [2]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 8,
+    "fields": {
+      "status": 2,
+      "form": "screening",
+      "project": 6,
+      "processes": [5]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 9,
+    "fields": {
+      "status": 1,
+      "form": "report",
+      "project": 2,
+      "processes": [6]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 10,
+    "fields": {
+      "status": 1,
+      "form": "report",
+      "project": 6,
+      "processes": [6]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 11,
+    "fields": {
+      "status": 1,
+      "form": "visit_1_report",
+      "project": 10,
+      "processes": [6]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 12,
+    "fields": {
+      "status": 2,
+      "form": "hollingshead",
+      "project": 9,
+      "processes": [7]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 13,
+    "fields": {
+      "status": 2,
+      "form": "dupaul_parent",
+      "project": 10,
+      "processes": [8]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 13,
+    "fields": {
+      "status": 1,
+      "form": "eprime",
+      "project": 3,
+      "processes": [9]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 14,
+    "fields": {
+      "status": 1,
+      "form": "imaging",
+      "project": 3,
+      "processes": [9]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 15,
+    "fields": {
+      "status": 2,
+      "form": "imaging",
+      "project": 4,
+      "processes": [9]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 16,
+    "fields": {
+      "status": 2,
+      "form": "visit_1_behavioral",
+      "project": 10,
+      "processes": [9]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 17,
+    "fields": {
+      "status": 2,
+      "form": "npr",
+      "project": 13,
+      "processes": [10]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 18,
+    "fields": {
+      "status": 2,
+      "form": "review",
+      "project": 12,
+      "processes": [10]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 19,
+    "fields": {
+      "status": 2,
+      "form": "prescreening_survey",
+      "project": 12,
+      "processes": [11]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 20,
+    "fields": {
+      "status": 2,
+      "form": "imaging",
+      "project": 3,
+      "processes": [12]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 21,
+    "fields": {
+      "status": 2,
+      "form": "imaging",
+      "project": 5,
+      "processes": [12]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 22,
+    "fields": {
+      "status": 2,
+      "form": "imaging",
+      "project": 7,
+      "processes": [12]
+    }
+  },
+    {
+    "model": "workflow.Trigger",
+    "pk": 23,
+    "fields": {
+      "status": 1,
+      "form": "imaging",
+      "project": 7,
+      "processes": [9]
+    }
+  }
+]
