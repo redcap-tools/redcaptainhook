@@ -65,6 +65,8 @@ class Process(models.Model):
     def __unicode__(self):
         return '<Process(%s)>' % (self.name)
 
+    def activate(self, **kwargs):
+        print "Activating %s..." % self
 
 #  Register models to admin site
 admin.site.register(Project)

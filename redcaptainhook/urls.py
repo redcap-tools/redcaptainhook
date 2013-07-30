@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # django_rq
-    (r'^django-rq/', include('django_rq.urls')),
+    url(r'^django-rq/', include('django_rq.urls')),
+    url(r'^workflow/', include('redcaptainhook.apps.workflow.urls', namespace="workflow")),
 )
