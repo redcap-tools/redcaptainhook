@@ -13,8 +13,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('status', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('form', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('event', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('dag', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('event', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
+            ('dag', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['workflow.Project'])),
         ))
         db.send_create_signal(u'workflow', ['Trigger'])
@@ -32,10 +32,14 @@ class Migration(SchemaMigration):
         db.create_table(u'workflow_project', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('redcap_pid', self.gf('django.db.models.fields.IntegerField')()),
-            ('hash', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('site', self.gf('django.db.models.fields.CharField')(default='vanderbilt', max_length=40)),
+            ('redcap_pid', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('hash', self.gf('django.db.models.fields.CharField')(default=None, max_length=50)),
         ))
         db.send_create_signal(u'workflow', ['Project'])
+
+        # Adding unique constraint on 'Project', fields ['site', 'redcap_pid']
+        db.create_unique(u'workflow_project', ['site', 'redcap_pid'])
 
         # Adding model 'Process'
         db.create_table(u'workflow_process', (
@@ -48,6 +52,9 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Project', fields ['site', 'redcap_pid']
+        db.delete_unique(u'workflow_project', ['site', 'redcap_pid'])
+
         # Deleting model 'Trigger'
         db.delete_table(u'workflow_trigger')
 
@@ -70,16 +77,17 @@ class Migration(SchemaMigration):
             'qname': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         u'workflow.project': {
-            'Meta': {'ordering': "['redcap_pid']", 'object_name': 'Project'},
-            'hash': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'Meta': {'ordering': "['redcap_pid']", 'unique_together': "(('site', 'redcap_pid'),)", 'object_name': 'Project'},
+            'hash': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '50'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'redcap_pid': ('django.db.models.fields.IntegerField', [], {})
+            'redcap_pid': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'site': ('django.db.models.fields.CharField', [], {'default': "'vanderbilt'", 'max_length': '40'})
         },
         u'workflow.trigger': {
             'Meta': {'object_name': 'Trigger'},
-            'dag': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'event': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'dag': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
+            'event': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'form': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'processes': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['workflow.Process']", 'symmetrical': 'False'}),
