@@ -14,5 +14,5 @@ urlpatterns = patterns('',
 
     # django_rq
     url(r'^django-rq/', include('django_rq.urls')),
-    url(r'^workflow/', include('redcaptainhook.apps.workflow.urls', namespace="workflow")),
+    url(r'^rch/', include('redcaptainhook.apps.workflow.urls', namespace="workflow")),
 )
