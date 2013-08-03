@@ -37,6 +37,10 @@ class Trigger(models.Model):
                                           self.form,
                                           self.status)
 
+    def activate(self, det_context):
+        for process in self.processes.all():
+            process.activate(**det_context)
+
 
 class Project(models.Model):
 
