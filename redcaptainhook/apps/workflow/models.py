@@ -12,8 +12,6 @@ __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 from django.db import models
 from django.contrib import admin
 
-# Create your models here.
-
 
 class Trigger(models.Model):
 
@@ -29,6 +27,7 @@ class Trigger(models.Model):
     form = models.CharField(max_length=50)
     event = models.CharField(max_length=50, blank=True)
     dag = models.CharField(max_length=50, blank=True)
+    active = models.BooleanField(default=True)
     project = models.ForeignKey('Project')
     processes = models.ManyToManyField('Process')
 
@@ -37,9 +36,16 @@ class Trigger(models.Model):
                                           self.form,
                                           self.status)
 
+    def get_active_processes(self):
+        return self.processes.filter(active=True)
+
     def activate(self, det_context):
-        for process in self.processes.all():
+        self.log()
+        for process in self.get_active_processes():
             process.activate(**det_context)
+
+    def log(self):
+        print "Logging %s" % self
 
 
 class Project(models.Model):
@@ -48,6 +54,7 @@ class Project(models.Model):
     site = models.CharField(max_length=40, default="vanderbilt")
     redcap_pid = models.IntegerField(default=0)
     hash = models.CharField(max_length=50, default=None)
+    active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["redcap_pid"]
@@ -56,12 +63,16 @@ class Project(models.Model):
     def __unicode__(self):
         return "<Project(%s, %s, %d)>" % (self.site, self.name, self.redcap_pid)
 
+    def log(self):
+        print "Logging %s" % self
+
 
 class Process(models.Model):
 
     name = models.CharField(max_length=50)
     qname = models.CharField(max_length=50)
     fname = models.CharField(max_length=100)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "processes"
@@ -70,7 +81,12 @@ class Process(models.Model):
         return '<Process(%s)>' % (self.name)
 
     def activate(self, **kwargs):
+        self.log()
         print "Activating %s..." % self
+
+    def log(self):
+        print "Logging %s" % self
+
 
 #  Register models to admin site
 admin.site.register(Project)

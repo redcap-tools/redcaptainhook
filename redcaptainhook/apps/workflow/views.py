@@ -46,12 +46,12 @@ def filter_request_for_trigger(request, site=None):
     d = convert_redcap_post_data(request.POST.dict())
     d['site'] = site
     try:
-        p = Project.objects.filter(redcap_pid=d['pid'], site=site)[0]
-    except IndexError:
+        p = Project.objects.get(redcap_pid=d['pid'], site=site, active=True)
+    except Project.DoesNotExist:
         # No projects match this request
         # Why are we getting this request?
-        return d, None
-    qs = p.trigger_set.filter(form=d['form'], status=d['status'])
+        return None, d, None
+    qs = p.trigger_set.filter(form=d['form'], status=d['status'], active=True)
     if d['event']:
         qs = qs.filter(event=d['event'])
     if d['dag']:
@@ -59,9 +59,9 @@ def filter_request_for_trigger(request, site=None):
     try:
         trigger = qs.all()[0]
     except IndexError:
-        return d, None
+        return p, d, None
     else:
-        return d, trigger
+        return p, d, trigger
 
 
 class IndexView(generic.ListView):
@@ -88,7 +88,9 @@ class TriggerProcessor(generic.TemplateView):
         return super(TriggerProcessor, self).dispatch(*args, **kwargs)
 
     def post(self, request, site):
-        post_data, trigger = filter_request_for_trigger(request, site)
+        project, post_data, trigger = filter_request_for_trigger(request, site)
+        if project:
+            project.log()
         if trigger:
             trigger.activate(post_data)
         return HttpResponse(content=u'Thank you\n', status=200)

@@ -18,15 +18,17 @@ def add_objects():
     proj1 = Project.objects.create(name="Test1", site="site1", redcap_pid=1, hash="foo")
     proj2 = Project.objects.create(name="Test2", site="site1", redcap_pid=2, hash="foo")
     proj3 = Project.objects.create(name="Test3", site="site2", redcap_pid=1, hash="foo")
+    proj4 = Project.objects.create(name="Inactive", site="site1", redcap_pid=3, hash="foo", active=False)
     # Triggers
     t1 = Trigger.objects.create(status=2, form='demographics', project=proj1)
     t2 = Trigger.objects.create(status=1, form='imaging', project=proj1)
-    t3 = Trigger.objects.create(status=2, form='imaging', project=proj1)
+    t3 = Trigger.objects.create(status=2, form='imaging', active=False, project=proj1)
     t4 = Trigger.objects.create(status=2, form='demographics', project=proj2)
     t5 = Trigger.objects.create(status=2, form='demographics', project=proj3)
+    t6 = Trigger.objects.create(status=2, form='demographics', project=proj4)
     # Processes
     proc1 = Process.objects.create(name='Process1', qname='default', fname='foo.bar.bat')
-    proc2 = Process.objects.create(name='Process2', qname='default', fname='foo.bar.bar')
+    proc2 = Process.objects.create(name='Process2', qname='default', fname='foo.bar.bar', active=False)
     proc3 = Process.objects.create(name='Process3', qname='default', fname='foo.bar.foo')
     proc4 = Process.objects.create(name='Process4', qname='default', fname='foo.bat.bar')
     proc5 = Process.objects.create(name='Process5', qname='default', fname='bar.bat.foo')
@@ -37,6 +39,7 @@ def add_objects():
     t3.processes.add(proc2)
     t4.processes.add(proc4)
     t5.processes.add(proc5)
+    t6.processes.add(proc1)
 
 
 def clear_objects():
@@ -63,11 +66,23 @@ class WorkflowModelTest(TestCase):
         "Set up the test db"
         add_objects()
 
+    def tearDown(self):
+        clear_objects()
+
     def test_trigger_filter(self):
         """Test finding trigger from project"""
-        p1 = Project.objects.get(pk=1)
+        p1 = Project.objects.get(name='Test1')
         t1 = Trigger.objects.get(pk=1)
         self.assertIn(t1, p1.trigger_set.all())
+
+    def test_trigger_get_active_processes(self):
+        t = Trigger.objects.get(status=2,
+            form='demographics', project__redcap_pid=1, project__site='site1')
+        good_proc = Process.objects.get(name='Process1')
+        inactive_proc = Process.objects.get(name='Process2')
+        active_procs_from_t = t.get_active_processes()
+        self.assertIn(good_proc, active_procs_from_t)
+        self.assertNotIn(inactive_proc, active_procs_from_t)
 
 
 class WorkflowViewTest(TestCase):
@@ -91,7 +106,7 @@ class WorkflowViewTest(TestCase):
         for good_k in ['pid', 'record', 'status', 'form', 'event', 'dag']:
             self.assertIn(good_k, xfm)
 
-    def test_trigger_post_good_trigger(self):
+    def test_trigger_good_trigger(self):
         pid, site, form, status = '1', 'site1', 'demographics', '2'
         det = get_det(pid, form, status)
         url = '/rch/trigger/%s' % site
@@ -102,3 +117,21 @@ class WorkflowViewTest(TestCase):
         self.assertEqual(correct_trigger, t)
         bad_trigger = p.trigger_set.get(status=1, form='imaging')
         self.assertNotEqual(bad_trigger, t)
+
+    def test_trigger_inactive_project(self):
+        "The trigger filter shouldn't return a trigger to an inactive project"
+        pid, site, form, status = '3', 'site1', 'demographics', '2'
+        det = get_det(pid, form, status)
+        url = '/rch/trigger/%s' % site
+        r = self.factory.post(url, data=det)
+        post_data, t = filter_request_for_trigger(r, site)
+        self.assertIsNone(t)
+
+    def test_trigger_inactive_trigger(self):
+        "The tirgger filter shouldn't return a trigger when it's inactive"
+        pid, site, form, status = '1', 'site1', 'imaging', '2'
+        det = get_det(pid, form, status)
+        url = '/rch/trigger/%s' % site
+        r = self.factory.post(url, data=det)
+        post_data, t = filter_request_for_trigger(r, site)
+        self.assertIsNone(t)
