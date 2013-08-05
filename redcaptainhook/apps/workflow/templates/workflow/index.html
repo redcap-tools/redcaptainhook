@@ -3,7 +3,13 @@
 {% block title %}Welcome to REDCaptainHook {% endblock %}
 
 {% block body %}
-<h1>Hello world!</h1>
+<h1>Installed Projects</h1>
 
-<p> There are {{ project_list|length }} projects</p>
+<ul>
+  {% for p in project_list %}
+    <li>
+      {{ p.name }}
+    </li>
+  {% endfor %}
+</ul>
 {% endblock %}

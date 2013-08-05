@@ -16,4 +16,5 @@ from redcaptainhook.apps.workflow import views
 urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^trigger/(?P<site>\w+)', views.TriggerProcessor.as_view(), name='trigger'),
+    url(r'history', views.HistoryView.as_view(), name='history'),
 )

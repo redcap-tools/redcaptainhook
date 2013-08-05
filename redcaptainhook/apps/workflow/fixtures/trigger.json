@@ -1,242 +1,371 @@
 [
-  {
-    "model": "workflow.Trigger",
-    "pk": 1,
-    "fields": {
-      "status": 2,
-      "form": "morphology_new",
-      "project": 8,
-      "processes": [1]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 2,
-    "fields": {
-      "status": 2,
-      "form": "checklist_survey",
-      "project": 11,
-      "processes": [2, 3]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 3,
-    "fields": {
-      "status": 2,
-      "form": "rating_scales",
-      "project": 1,
-      "processes": [4]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 4,
-    "fields": {
-      "status": 2,
-      "form": "checklist_survey",
-      "project": 2,
-      "processes": [4]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 5,
-    "fields": {
-      "status": 2,
-      "form": "checklist_survey",
-      "project": 3,
-      "processes": [4]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 6,
-    "fields": {
-      "status": 2,
-      "form": "checklist_survey",
-      "project": 10,
-      "processes": [4]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 7,
-    "fields": {
-      "status": 2,
-      "form": "checklist_survey",
-      "project": 11,
-      "processes": [2]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 8,
-    "fields": {
-      "status": 2,
-      "form": "screening",
-      "project": 6,
-      "processes": [5]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 9,
-    "fields": {
-      "status": 1,
-      "form": "report",
-      "project": 2,
-      "processes": [6]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 10,
-    "fields": {
-      "status": 1,
-      "form": "report",
-      "project": 6,
-      "processes": [6]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 11,
-    "fields": {
-      "status": 1,
-      "form": "visit_1_report",
-      "project": 10,
-      "processes": [6]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 12,
-    "fields": {
-      "status": 2,
-      "form": "hollingshead",
-      "project": 9,
-      "processes": [7]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 13,
-    "fields": {
-      "status": 2,
-      "form": "dupaul_parent",
-      "project": 10,
-      "processes": [8]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 13,
-    "fields": {
-      "status": 1,
-      "form": "eprime",
-      "project": 3,
-      "processes": [9]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 14,
-    "fields": {
-      "status": 1,
-      "form": "imaging",
-      "project": 3,
-      "processes": [9]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 15,
-    "fields": {
-      "status": 2,
-      "form": "imaging",
-      "project": 4,
-      "processes": [9]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 16,
-    "fields": {
-      "status": 2,
-      "form": "visit_1_behavioral",
-      "project": 10,
-      "processes": [9]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 17,
-    "fields": {
-      "status": 2,
-      "form": "npr",
-      "project": 13,
-      "processes": [10]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 18,
-    "fields": {
-      "status": 2,
-      "form": "review",
-      "project": 12,
-      "processes": [10]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 19,
-    "fields": {
-      "status": 2,
-      "form": "prescreening_survey",
-      "project": 12,
-      "processes": [11]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 20,
-    "fields": {
-      "status": 2,
-      "form": "imaging",
-      "project": 3,
-      "processes": [12]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 21,
-    "fields": {
-      "status": 2,
-      "form": "imaging",
-      "project": 5,
-      "processes": [12]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 22,
-    "fields": {
-      "status": 2,
-      "form": "imaging",
-      "project": 7,
-      "processes": [12]
-    }
-  },
-    {
-    "model": "workflow.Trigger",
-    "pk": 23,
-    "fields": {
-      "status": 1,
-      "form": "imaging",
-      "project": 7,
-      "processes": [9]
-    }
+{
+  "pk": 1, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      1
+    ], 
+    "dag": "", 
+    "name": "form:morphology_new&status:2&event:&dag:", 
+    "form": "morphology_new", 
+    "project": 8, 
+    "active": true, 
+    "event": ""
   }
+},
+{
+  "pk": 2, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      2, 
+      3
+    ], 
+    "dag": "", 
+    "name": "form:checklist_survey&status:2&event:&dag:", 
+    "form": "checklist_survey", 
+    "project": 11, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 3, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      4
+    ], 
+    "dag": "", 
+    "name": "form:rating_scales&status:2&event:&dag:", 
+    "form": "rating_scales", 
+    "project": 1, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 4, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      4
+    ], 
+    "dag": "", 
+    "name": "form:checklist_survey&status:2&event:&dag:", 
+    "form": "checklist_survey", 
+    "project": 2, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 5, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      4
+    ], 
+    "dag": "", 
+    "name": "form:checklist_survey&status:2&event:&dag:", 
+    "form": "checklist_survey", 
+    "project": 3, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 6, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      4
+    ], 
+    "dag": "", 
+    "name": "form:checklist_survey&status:2&event:&dag:", 
+    "form": "checklist_survey", 
+    "project": 10, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 7, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      2
+    ], 
+    "dag": "", 
+    "name": "form:checklist_survey&status:2&event:&dag:", 
+    "form": "checklist_survey", 
+    "project": 11, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 8, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      5
+    ], 
+    "dag": "", 
+    "name": "form:screening&status:2&event:&dag:", 
+    "form": "screening", 
+    "project": 6, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 9, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      6
+    ], 
+    "dag": "", 
+    "name": "form:report&status:1&event:&dag:", 
+    "form": "report", 
+    "project": 2, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 10, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      6
+    ], 
+    "dag": "", 
+    "name": "form:report&status:1&event:&dag:", 
+    "form": "report", 
+    "project": 6, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 11, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      6
+    ], 
+    "dag": "", 
+    "name": "form:visit_1_report&status:1&event:&dag:", 
+    "form": "visit_1_report", 
+    "project": 10, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 12, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      7
+    ], 
+    "dag": "", 
+    "name": "form:hollingshead&status:2&event:&dag:", 
+    "form": "hollingshead", 
+    "project": 9, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 13, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      9
+    ], 
+    "dag": "", 
+    "name": "form:eprime&status:1&event:&dag:", 
+    "form": "eprime", 
+    "project": 3, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 14, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      9
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:1&event:&dag:", 
+    "form": "imaging", 
+    "project": 3, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 15, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      9
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:2&event:&dag:", 
+    "form": "imaging", 
+    "project": 4, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 16, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      9
+    ], 
+    "dag": "", 
+    "name": "form:visit_1_behavioral&status:2&event:&dag:", 
+    "form": "visit_1_behavioral", 
+    "project": 10, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 17, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      10
+    ], 
+    "dag": "", 
+    "name": "form:npr&status:2&event:&dag:", 
+    "form": "npr", 
+    "project": 13, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 18, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      10
+    ], 
+    "dag": "", 
+    "name": "form:review&status:2&event:&dag:", 
+    "form": "review", 
+    "project": 12, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 19, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      11
+    ], 
+    "dag": "", 
+    "name": "form:prescreening_survey&status:2&event:&dag:", 
+    "form": "prescreening_survey", 
+    "project": 12, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 20, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      12
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:2&event:&dag:", 
+    "form": "imaging", 
+    "project": 3, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 21, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      12
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:2&event:&dag:", 
+    "form": "imaging", 
+    "project": 5, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 22, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      12
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:2&event:&dag:", 
+    "form": "imaging", 
+    "project": 7, 
+    "active": true, 
+    "event": ""
+  }
+},
+{
+  "pk": 23, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 1, 
+    "processes": [
+      9
+    ], 
+    "dag": "", 
+    "name": "form:imaging&status:1&event:&dag:", 
+    "form": "imaging", 
+    "project": 7, 
+    "active": true, 
+    "event": ""
+  }
+}
 ]

@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
-from redcaptainhook.apps.workflow.models import Project
+from redcaptainhook.apps.workflow.models import Project, History
 
 
 def convert_redcap_post_data(post_dict):
@@ -64,13 +64,22 @@ def filter_request_for_trigger(request, site=None):
         return p, d, trigger
 
 
+class HistoryView(generic.ListView):
+    template_name = "workflow/history.html"
+    context_object_name = "history_list"
+
+    def get_queryset(self):
+        """Return previous 10 history items"""
+        return History.objects.select_related().order_by('-timestamp')[:10]
+
+
 class IndexView(generic.ListView):
     template_name = "workflow/index.html"
     context_object_name = "project_list"
 
     def get_queryset(self):
         """Return all projects"""
-        return Project.objects.order_by('-redcap_pid')
+        return Project.objects.all().order_by('-redcap_pid')
 
 
 class TriggerProcessor(generic.TemplateView):

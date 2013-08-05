@@ -9,11 +9,10 @@
 <body>
 <div class="container">
   <div class="navbar navbar-static-top navbar-inverse">
-    <a class="navbar-brand" href="#">REDCaptainHook</a>
+    <a class="navbar-brand" href="/">REDCaptainHook</a>
     <ul class="nav navbar-nav">
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Triggers</a></li>
-      <li><a href="#">Processes</a></li>
+      <li><a href="{% url 'workflow:index' %}">Projects</a></li>
+      <li><a href="{% url 'workflow:history' %}">History</a></li>
     </ul>
     <button type="button" class="btn btn-default navbar-btn pull-right">Sign in</button>
   </div> <!-- navbar -->

@@ -13,6 +13,19 @@ from django.db import models
 from django.contrib import admin
 
 
+class History(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    ENTITY_PROJECT = 1
+    ENTITY_TRIGGER = 2
+    ENTITY_PROCESS = 3
+    ENTITY_CHOICES = (
+        (ENTITY_PROJECT, 'Project'),
+        (ENTITY_TRIGGER, 'Trigger'),
+        (ENTITY_PROCESS, 'Process'),)
+    entity = models.IntegerField(choices=ENTITY_CHOICES, default=ENTITY_PROJECT)
+    name = models.CharField(max_length=50)
+
+
 class Trigger(models.Model):
 
     STATUS_INCOMPLETE = 0
@@ -28,8 +41,20 @@ class Trigger(models.Model):
     event = models.CharField(max_length=50, blank=True)
     dag = models.CharField(max_length=50, blank=True)
     active = models.BooleanField(default=True)
+    name = models.CharField(max_length=50, null=False)
     project = models.ForeignKey('Project')
     processes = models.ManyToManyField('Process')
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.default_name()
+        super(Trigger, self).save(*args, **kwargs)
+
+    def default_name(self):
+        return '&'.join(['form:%s' % self.form,
+                         'status:%d' % self.status,
+                         'event:%s' % self.event,
+                         'dag:%s' % self.dag])
 
     def __unicode__(self):
         return '<Trigger(%s, %s, %d)>' % (self.project.name,
@@ -45,12 +70,12 @@ class Trigger(models.Model):
             process.activate(**det_context)
 
     def log(self):
-        print "Logging %s" % self
+        History.objects.create(entity=2, name=self.name)
 
 
 class Project(models.Model):
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     site = models.CharField(max_length=40, default="vanderbilt")
     redcap_pid = models.IntegerField(default=0)
     hash = models.CharField(max_length=50, default=None)
@@ -64,7 +89,7 @@ class Project(models.Model):
         return "<Project(%s, %s, %d)>" % (self.site, self.name, self.redcap_pid)
 
     def log(self):
-        print "Logging %s" % self
+        History.objects.create(entity=1, name=self.name)
 
 
 class Process(models.Model):
@@ -82,10 +107,10 @@ class Process(models.Model):
 
     def activate(self, **kwargs):
         self.log()
-        print "Activating %s..." % self
+        ## TODO: Activate
 
     def log(self):
-        print "Logging %s" % self
+        History.objects.create(entity=3, name=self.name)
 
 
 #  Register models to admin site

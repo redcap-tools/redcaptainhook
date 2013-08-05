@@ -6,9 +6,10 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from django.test.client import RequestFactory
+from django.test.client import RequestFactory, Client
 
-from redcaptainhook.apps.workflow.models import Project, Process, Trigger
+from redcaptainhook.apps.workflow.models import Project, Process, Trigger,\
+    History
 from redcaptainhook.apps.workflow.views import TriggerProcessor, \
     filter_request_for_trigger, convert_redcap_post_data
 
@@ -111,8 +112,9 @@ class WorkflowViewTest(TestCase):
         det = get_det(pid, form, status)
         url = '/rch/trigger/%s' % site
         r = self.factory.post(url, data=det)
-        post_data, t = filter_request_for_trigger(r, site)
+        project, post_data, t = filter_request_for_trigger(r, site)
         p = Project.objects.get(redcap_pid=pid, site=site)
+        self.assertEqual(project, p)
         correct_trigger = p.trigger_set.get(form=form, status=status)
         self.assertEqual(correct_trigger, t)
         bad_trigger = p.trigger_set.get(status=1, form='imaging')
@@ -124,7 +126,7 @@ class WorkflowViewTest(TestCase):
         det = get_det(pid, form, status)
         url = '/rch/trigger/%s' % site
         r = self.factory.post(url, data=det)
-        post_data, t = filter_request_for_trigger(r, site)
+        project, post_data, t = filter_request_for_trigger(r, site)
         self.assertIsNone(t)
 
     def test_trigger_inactive_trigger(self):
@@ -133,5 +135,21 @@ class WorkflowViewTest(TestCase):
         det = get_det(pid, form, status)
         url = '/rch/trigger/%s' % site
         r = self.factory.post(url, data=det)
-        post_data, t = filter_request_for_trigger(r, site)
+        project, post_data, t = filter_request_for_trigger(r, site)
         self.assertIsNone(t)
+
+    def test_history_additions(self):
+        c = Client()
+        pid, site, form, status = '1', 'site1', 'demographics', '2'
+        det = get_det(pid, form, status)
+        url = '/rch/trigger/%s' % site
+        response = c.post(url, data=det)
+        self.assertEqual(response.status_code, 200)
+        # Should have a 1 Project, 1 Trigger, and 1 Process records
+        self.assertEqual(len(History.objects.all()), 3)
+        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_PROJECT)), 1)
+        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_TRIGGER)), 1)
+        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_PROCESS)), 1)
+
+
+
