@@ -14,5 +14,8 @@ urlpatterns = patterns('',
 
     # django_rq
     url(r'^django-rq/', include('django_rq.urls')),
+    # rch
     url(r'^rch/', include('redcaptainhook.apps.workflow.urls', namespace="workflow")),
+    url(r'^$', 'redcaptainhook.apps.main.views.index', name='index'),
+    url(r'^about$', 'redcaptainhook.apps.main.views.about', name='about'),
 )

@@ -3,18 +3,16 @@
 
 """ urls.py
 
-Workflow URLS
+Main pages urls
 """
 __author__ = 'Scott Burns <scott.s.burns@vanderbilt.edu>'
 __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
-
 from django.conf.urls import patterns, url
 
-from redcaptainhook.apps.workflow import views
+from .views import about, index
 
 urlpatterns = patterns('',
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^trigger/(?P<site>\w+)', views.TriggerProcessor.as_view(), name='trigger'),
-    url(r'^history', views.HistoryView.as_view(), name='history'),
+    url(r'^about$', about, name='about'),
+    url(r'^$', index, name='index'),
 )

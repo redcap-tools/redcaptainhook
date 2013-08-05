@@ -134,5 +134,8 @@ def startapp(app):
 def load():
     local("python manage.py loaddata redcaptainhook/apps/workflow/fixtures/{project,trigger,process}.json")
 
+@task
+def test():
+    local("python manage.py test main workflow")
 ########## END DJANGO HELPERS
 

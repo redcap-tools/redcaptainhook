@@ -219,7 +219,11 @@ LOCAL_APPS = (
 
     # celerytest
     # 'redcaptainhook.apps.celerytest',
-    'redcaptainhook.apps.rqtest'
+    'redcaptainhook.apps.rqtest',
+
+    # main
+    'redcaptainhook.apps.main',
+
 )
 
 
