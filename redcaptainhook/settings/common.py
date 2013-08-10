@@ -263,14 +263,6 @@ LOGGING = {
 }
 ########## END LOGGING CONFIGURATION
 
-########## RQ CONFIG
-RQ_QUEUES = {
-    'switchboard': {
-        'URL': get_env_var('RCH_BROKER_URL'),
-        'DB': 0
-    }
-}
-########## END RQ CONFIG
 
 ########## WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
