@@ -11,6 +11,7 @@ __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
 from django.db import models
 from django.contrib import admin
+import django_rq
 
 
 class History(models.Model):
@@ -67,7 +68,7 @@ class Trigger(models.Model):
     def activate(self, det_context):
         self.log()
         for process in self.get_active_processes():
-            process.activate(**det_context)
+            process.activate(det_context)
 
     def log(self):
         History.objects.create(entity=2, name=self.name)
@@ -105,9 +106,10 @@ class Process(models.Model):
     def __unicode__(self):
         return '<Process(%s)>' % (self.name)
 
-    def activate(self, **kwargs):
+    def activate(self, det_context):
         self.log()
-        ## TODO: Activate
+        queue = django_rq.get_queue(self.qname)
+        queue.enqueue(self.fname, **det_context)
 
     def log(self):
         History.objects.create(entity=3, name=self.name)
