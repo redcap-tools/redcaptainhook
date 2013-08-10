@@ -367,5 +367,21 @@
     "active": true, 
     "event": ""
   }
+},
+{
+  "pk": 24, 
+  "model": "workflow.trigger", 
+  "fields": {
+    "status": 2, 
+    "processes": [
+      13
+    ], 
+    "dag": "", 
+    "name": "tester", 
+    "form": "demographics", 
+    "project": 14, 
+    "active": true, 
+    "event": ""
+  }
 }
 ]
