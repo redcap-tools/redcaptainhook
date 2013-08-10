@@ -30,6 +30,7 @@ RCH_CONFIGS = (
     'RCH_PROD_DB_PORT',
     'RCH_PROD_DB_NAME',
     'RCH_PROD_BROKER_URL',
+    'SECRET_KEY'
     )
 ########## END GLOBALS
 
