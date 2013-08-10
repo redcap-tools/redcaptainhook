@@ -23,6 +23,14 @@ HEROKU_CONFIGS = (
     'AWS_SECRET_ACCESS_KEY=xxx',
     'AWS_STORAGE_BUCKET_NAME=xxx',
 )
+RCH_CONFIGS = (
+    'RCH_PROD_DB_HOST',
+    'RCH_PROD_DB_PASS',
+    'RCH_PROD_DB_USER',
+    'RCH_PROD_DB_PORT',
+    'RCH_PROD_DB_NAME',
+    'RCH_PROD_BROKER_URL',
+    )
 ########## END GLOBALS
 
 
@@ -120,6 +128,15 @@ def destroy():
         This really will completely destroy your application. Think twice.
     """
     local('heroku apps:destroy')
+
+
+@task
+def heroku_sync_config():
+    """Sync specific envars
+    """
+    config_cmd = 'heroku config:set %s' % ' '.join(['%s=$%s' % (k, k) for k in RCH_CONFIGS])
+    local(config_cmd)
+
 ########## END HEROKU MANAGEMENT
 
 
