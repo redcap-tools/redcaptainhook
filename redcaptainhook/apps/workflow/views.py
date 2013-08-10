@@ -70,7 +70,7 @@ class HistoryView(generic.ListView):
 
     def get_queryset(self):
         """Return previous 10 history items"""
-        return History.objects.select_related().order_by('-timestamp')[:10]
+        return History.objects.select_related().order_by('-timestamp')[:100]
 
 
 class IndexView(generic.ListView):
