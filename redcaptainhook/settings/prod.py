@@ -3,8 +3,8 @@
 
 from os import environ
 
-from memcacheify import memcacheify
-from postgresify import postgresify
+# from memcacheify import memcacheify
+# from postgresify import postgresify
 from S3 import CallingFormat
 
 from common import *
@@ -38,13 +38,31 @@ SERVER_EMAIL = EMAIL_HOST_USER
 
 
 ########## DATABASE CONFIGURATION
-DATABASES = postgresify()
+DATABASES = DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_var('RCH_PROD_DB_NAME'),
+        'USER': get_env_var('RCH_PROD_DB_USER'),
+        'PASSWORD': get_env_var('RCH_PROD_DB_PASS'),
+        'HOST': get_env_var('RCH_PROD_DB_HOST'),
+        'PORT': get_env_var('RCH_PROD_DB_PORT'),
+    }
+}
 ########## END DATABASE CONFIGURATION
+
+########## RQ CONFIG
+RQ_QUEUES = {
+    'switchboard': {
+        'URL': get_env_var('RCH_PROD_BROKER_URL'),
+        'DB': 0
+    }
+}
+########## END RQ CONFIG
 
 
 ########## CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = memcacheify()
+# CACHES = memcacheify()
 ########## END CACHE CONFIGURATION
 
 
@@ -134,4 +152,3 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['.herokuapp.com']
 ########## END ALLOWED HOST CONFIGURATION
-

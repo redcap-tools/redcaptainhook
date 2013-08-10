@@ -8,7 +8,7 @@ from sys import path
 
 from django.core.exceptions import ImproperlyConfigured
 
-from djcelery import setup_loader
+# from djcelery import setup_loader
 
 
 def get_env_var(env_var):
@@ -263,18 +263,14 @@ LOGGING = {
 }
 ########## END LOGGING CONFIGURATION
 
-
-########## CELERY CONFIGURATION
-# See: http://celery.readthedocs.org/en/latest/configuration.html#celery-task-result-expires
-CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
-
-# See: http://docs.celeryproject.org/en/master/configuration.html#std:setting-CELERY_CHORD_PROPAGATES
-CELERY_CHORD_PROPAGATES = True
-
-# See: http://celery.github.com/celery/django/
-setup_loader()
-########## END CELERY CONFIGURATION
-
+########## RQ CONFIG
+RQ_QUEUES = {
+    'switchboard': {
+        'URL': get_env_var('RCH_BROKER_URL'),
+        'DB': 0
+    }
+}
+########## END RQ CONFIG
 
 ########## WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application

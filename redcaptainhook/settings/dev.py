@@ -36,6 +36,16 @@ DATABASES = {
 ########## END DATABASE CONFIGURATION
 
 
+########## RQ CONFIG
+RQ_QUEUES = {
+    'switchboard': {
+        'URL': get_env_var('RCH_DEV_BROKER_URL'),
+        'DB': 0
+    }
+}
+########## END RQ CONFIG
+
+
 ########## CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
@@ -44,17 +54,6 @@ CACHES = {
     }
 }
 ########## END CACHE CONFIGURATION
-
-########## RQ CONFIG
-RQ_QUEUES = {
-    'default': {
-        'URL': get_env_var('RCH_BROKER_URL'),
-        'DB': 0
-    }
-}
-
-
-########## END RQ CONFIG
 
 
 ########## CELERY CONFIGURATION
