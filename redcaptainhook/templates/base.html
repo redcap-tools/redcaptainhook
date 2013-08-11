@@ -1,9 +1,12 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
-  <title>{% block title %} {% endblock %}</title>
+  {% block style %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  {% endblock style %}
+  <title>{% block title %}Welcome to REDCaptainHook{% endblock title%}</title>
 </head>
 <body>
 <div class="container">
@@ -19,8 +22,13 @@
 
   <div class="col-lg-10 col-offset-1">
     {% block body %}
-    {% endblock %}
+    {% endblock body%}
   </div>
 </div> <!-- container -->
+
+{% block js %}
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+{% endblock js %}
 </body>
 </html>
