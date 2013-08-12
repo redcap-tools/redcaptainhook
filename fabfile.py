@@ -30,7 +30,10 @@ RCH_CONFIGS = (
     'RCH_PROD_DB_PORT',
     'RCH_PROD_DB_NAME',
     'RCH_PROD_BROKER_URL',
-    'SECRET_KEY'
+    'SECRET_KEY',
+    'EMAIL_HOST',
+    'EMAIL_HOST_PASSWORD',
+    'EMAIL_HOST_USER',
     )
 ########## END GLOBALS
 

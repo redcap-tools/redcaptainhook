@@ -58,13 +58,13 @@ CACHES = {
 
 ########## CELERY CONFIGURATION
 # See: http://docs.celeryq.org/en/latest/configuration.html#celery-always-eager
-CELERY_ALWAYS_EAGER = True
+# CELERY_ALWAYS_EAGER = True
 
 # See: http://docs.celeryproject.org/en/latest/configuration.html#celery-eager-propagates-exceptions
-CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+# CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 
 # See: http://docs.celeryproject.org/en/latest/configuration.html#redis-backend-settings
-BROKER_URL = get_env_var('RCH_BROKER_URL')
+# BROKER_URL = get_env_var('RCH_BROKER_URL')
 ########## END CELERY CONFIGURATION
 
 
@@ -75,7 +75,7 @@ INSTALLED_APPS += (
 
 )
 
-DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False, }
 
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INTERNAL_IPS = ('127.0.0.1',)
@@ -85,4 +85,3 @@ MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 ########## END TOOLBAR CONFIGURATION
-
