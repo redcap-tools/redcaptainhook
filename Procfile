@@ -1,3 +1,3 @@
-web: python manage.py collectstatic --noinput; newrelic-admin run-program gunicorn -c gunicorn.py.ini wsgi:application
+web: python manage.py collectstatic --noinput -v 0; newrelic-admin run-program gunicorn -c gunicorn.py.ini wsgi:application
 scheduler: python manage.py celery worker -B -E --maxtasksperchild=1000
 worker: python manage.py celery worker -E --maxtasksperchild=1000
