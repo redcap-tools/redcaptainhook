@@ -3,10 +3,47 @@
 {% block title %}Welcome to REDCaptain Hook{% endblock %}
 
 {% block body %}
-<h1>What is this?</h1>
-
+<h2>
+  What is this?
+</h2>
 <p>
   This is a web application to let anyone using REDCap better use the <strong>Data Entry Trigger</strong> feature.
 </p>
 
+<h2>
+  What is <strong>REDCap</strong>?
+</h2>
+<p>
+  <a href="http://project-redcap.org">REDCap</a> is a database-as-a-service that makes it very easy to design databases and begin collecting data very quickly. It is geared towards non-technical users that know they should be storing their data in something besides spreadsheets but don't have the skills necessary to build their own database application.
+</p>
+
+<h2>What is a <strong>Data Entry Trigger</strong>?</h2>
+<p>
+  Because REDCap is built as a webservice, it exposes a couple of very advanced features. The first is the <strong>Application Programming Interface</strong>, or <strong>API</strong>. This interface allows external software to communicate with REDCap projects. For example, a nightly script can download all of a projects data with no human intervention required.
+</p>
+<p>
+  The other advanced feature REDCap gives users is the ability to notify an external webservice everytime any data is stored through the web application. This notification does not contain what data was saved but rather context around that save. The project, record, form, status and a few other fields are passed to a specific URL (that the user specifies per project). If you know what you're doing, you can install particular functions within the webservice that will run based on this incoming notification. This feature is called the <strong>Data Entry Trigger</strong>. When coupled with the API, it forms the foundation for very advanced data management workflows because advanced data processing can begin as soon as data is entered and saved.
+</p>
+<p>
+  Unfortunately, implementing Data Entry Triggers is difficult. Only one URL can be specified per project, so if you'd like to perform more than a single action per project when data is saved, logic is required to parse the incoming request and "connect" is to the correct function that should run.
+</p>
+
+<h2>So, what is this then?</h2>
+<p>
+  99% of the clinical or research groups using REDCap don't have the technical expertise to take advantage of Data Entry Triggers. They can't setup, secure and maintain a webserver and also probably can't write the web application needed to route the notifications to the correct functions.
+</p>
+<p>
+  This web application aims to be the front-end application that groups around the world use as their Data Entry Trigger URL.
+</p>
+
+<h2>What does it do?</h2>
+<p>
+  This application defines a URL per site that groups from that site can use for their Data Entry Trigger URL. Then when they save data in their project, REDCap will send the notification to this application.
+</p>
+<p>
+  Here's where it (hopefully) gets interesting. Behind this website is a database containing projects, triggers (a combination of form, status and other fields) and then subsequent processes that should be run based on the trigger.
+</p>
+<p>
+  When a particular notification is sent that matches with an entry in the database, this application will queue up a call to the process that should run. Generally speaking, these processes will access the just-saved data through the API and process it somehow. I am still deciding <em>where</em> this work is actually done.
+</p>
 {% endblock %}
