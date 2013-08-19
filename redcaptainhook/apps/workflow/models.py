@@ -23,8 +23,8 @@ class History(models.Model):
         (ENTITY_PROJECT, 'Project'),
         (ENTITY_TRIGGER, 'Trigger'),
         (ENTITY_PROCESS, 'Process'),)
-    entity = models.IntegerField(choices=ENTITY_CHOICES, default=ENTITY_PROJECT)
-    name = models.CharField(max_length=50)
+    entity_type = models.IntegerField(choices=ENTITY_CHOICES, default=ENTITY_PROJECT)
+    entity_pk = models.IntegerField(default=0)
 
 
 class Trigger(models.Model):
@@ -71,7 +71,7 @@ class Trigger(models.Model):
             process.activate(det_context)
 
     def log(self):
-        History.objects.create(entity=2, name=self.name)
+        History.objects.create(entity_type=2, entity_pk=self.pk)
 
 
 class Project(models.Model):
@@ -90,7 +90,7 @@ class Project(models.Model):
         return "<Project(%s, %s, %d)>" % (self.site, self.name, self.redcap_pid)
 
     def log(self):
-        History.objects.create(entity=1, name=self.name)
+        History.objects.create(entity_type=1, entity_pk=self.pk)
 
 
 class Process(models.Model):
@@ -112,7 +112,7 @@ class Process(models.Model):
         queue.enqueue(self.fname, **det_context)
 
     def log(self):
-        History.objects.create(entity=3, name=self.name)
+        History.objects.create(entity_type=3, entity_pk=self.pk)
 
 
 #  Register models to admin site

@@ -4,16 +4,16 @@
 {% block title %}Trigger History {% endblock %}
 
 {% block body %}
-<table>
+<table class="table table-bordered">
   <tr>
-    <th>Trigger Name</th>
-    <th>Trigger Type</th>
+    <th>Entity Type</th>
+    <th>Entity Identifier</th>
     <th>Timestamp</th>
   </tr>
   {% for item in history_list %}
   <tr>
-    <td>{{ item.name }}</td>
-    <td>{{ item.entity }}</td>
+    <td>{{ item.entity_type }}</td>
+    <td>{{ item.entity_pk }}</td>
     <td>{{ item.timestamp|naturaltime }}</td>
   </tr>
   {% endfor %}
