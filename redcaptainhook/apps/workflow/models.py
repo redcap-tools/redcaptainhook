@@ -116,6 +116,6 @@ class Process(models.Model):
 
 
 #  Register models to admin site
-admin.site.register(Project)
-admin.site.register(Process)
-admin.site.register(Trigger)
+# admin.site.register(Project)
+# admin.site.register(Process)
+# admin.site.register(Trigger)
