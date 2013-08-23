@@ -10,7 +10,6 @@ __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
 
 from django.db import models
-from django.contrib import admin
 import django_rq
 
 
@@ -113,9 +112,3 @@ class Process(models.Model):
 
     def log(self):
         History.objects.create(entity_type=3, entity_pk=self.pk)
-
-
-#  Register models to admin site
-# admin.site.register(Project)
-# admin.site.register(Process)
-# admin.site.register(Trigger)
