@@ -10,6 +10,9 @@ __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
 
 from django.db import models
+from django.conf import settings
+from django.core.urlresolvers import reverse
+
 import django_rq
 
 
@@ -91,6 +94,9 @@ class Project(models.Model):
     def log(self):
         History.objects.create(entity_type=History.ENTITY_PROJECT, entity_pk=self.pk)
 
+    def trigger_url(self):
+        return '%s%s?auth=%s' % (settings.BASE_DOMAIN,
+            reverse('workflow:trigger', args=(self.site,)), self.hash)
 
 class Process(models.Model):
 

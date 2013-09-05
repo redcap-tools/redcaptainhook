@@ -34,6 +34,7 @@ RCH_CONFIGS = (
     'EMAIL_HOST',
     'EMAIL_HOST_PASSWORD',
     'EMAIL_HOST_USER',
+    'RCH_PROD_BASE_DOMAIN',
     )
 ########## END GLOBALS
 

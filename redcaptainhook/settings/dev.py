@@ -90,3 +90,5 @@ MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 ########## END TOOLBAR CONFIGURATION
+
+BASE_DOMAIN = get_env_var('RCH_DEV_BASE_DOMAIN')
