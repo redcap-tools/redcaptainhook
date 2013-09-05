@@ -41,7 +41,12 @@ RQ_QUEUES = {
     'switchboard': {
         'URL': get_env_var('RCH_DEV_BROKER_URL'),
         'DB': 0
+    },
+    'default': {
+        'URL': get_env_var('RCH_DEV_BROKER_URL'),
+        'DB': 0
     }
+
 }
 ########## END RQ CONFIG
 
