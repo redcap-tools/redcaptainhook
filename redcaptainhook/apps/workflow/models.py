@@ -70,7 +70,7 @@ class Trigger(models.Model):
             process.activate(det_context)
 
     def log(self):
-        History.objects.create(entity_type=2, entity_pk=self.pk)
+        History.objects.create(entity_type=History.ENTITY_TRIGGER, entity_pk=self.pk)
 
 
 class Project(models.Model):
@@ -89,7 +89,7 @@ class Project(models.Model):
         return "<Project(%s, %s, %d)>" % (self.site, self.name, self.redcap_pid)
 
     def log(self):
-        History.objects.create(entity_type=1, entity_pk=self.pk)
+        History.objects.create(entity_type=History.ENTITY_PROJECT, entity_pk=self.pk)
 
 
 class Process(models.Model):
@@ -111,4 +111,4 @@ class Process(models.Model):
         queue.enqueue(self.fname, **det_context)
 
     def log(self):
-        History.objects.create(entity_type=3, entity_pk=self.pk)
+        History.objects.create(entity_type=History.ENTITY_PROCESS, entity_pk=self.pk)
