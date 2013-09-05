@@ -1,15 +1,27 @@
 {% extends "base.html" %}
+{% load workflow_extra %}
 
 {% block title %}Welcome to REDCaptainHook {% endblock %}
 
 {% block body %}
-<h1>Installed Projects</h1>
+<h2>Hooked Projects</h2>
 
-<ul>
-  {% for p in project_list %}
-    <li>
-      {{ p.name }}
-    </li>
-  {% endfor %}
-</ul>
+<p>REDCaptainHook knows about the projects below. Projects in yellow are not passing Data Entry Triggers to their associated processes.</p>
+
+<div class="col-lg-8 col-lg-offset-2">
+  <table class="table table-condensed">
+    <tr>
+      <th>Project Site</th>
+      <th>Project ID</th>
+      <th>Project Name</th>
+    </tr>
+    {% for p in project_list %}
+      <tr class="{{ p.active|active }}">
+        <td>{{ p.site }}</td>
+        <td>{{ p.redcap_pid }}</td>
+        <td><a href="{% url 'workflow:project' p.id %}">{{ p.name }}</a></td>
+      </tr>
+    {% endfor %}
+  </table class="table">
+</div>
 {% endblock %}
