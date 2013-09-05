@@ -7,6 +7,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.test.client import RequestFactory, Client
+from django.core.urlresolvers import reverse
 
 from redcaptainhook.apps.workflow.models import Project, Process, Trigger,\
     History
@@ -95,6 +96,9 @@ class WorkflowViewTest(TestCase):
     def tearDown(self):
         clear_objects()
 
+    def _build_trigger_url(self, site, auth=''):
+        return '%s?auth=%s' % (reverse('workflow:trigger', args=(site,)), auth)
+
     def test_trigger_get(self):
         r = self.factory.get('/rch/trigger/foo/')
         view_func = TriggerProcessor.as_view()
@@ -110,7 +114,7 @@ class WorkflowViewTest(TestCase):
     def test_trigger_good_trigger(self):
         pid, site, form, status = '1', 'site1', 'demographics', '2'
         det = get_det(pid, form, status)
-        url = '/rch/trigger/%s' % site
+        url = self._build_trigger_url(site, 'foo')
         r = self.factory.post(url, data=det)
         project, post_data, t = filter_request_for_trigger(r, site)
         p = Project.objects.get(redcap_pid=pid, site=site)
@@ -124,13 +128,23 @@ class WorkflowViewTest(TestCase):
         "The trigger filter shouldn't return a trigger to an inactive project"
         pid, site, form, status = '3', 'site1', 'demographics', '2'
         det = get_det(pid, form, status)
-        url = '/rch/trigger/%s' % site
+        url = self._build_trigger_url(site, 'foo')
         r = self.factory.post(url, data=det)
         project, post_data, t = filter_request_for_trigger(r, site)
         self.assertIsNone(t)
 
+    def test_trigger_bad_auth(self):
+        "Bad auth parameter should not return a project/trigger combo"
+        pid, site, form, status = '1', 'site1', 'demographics', '2'
+        det = get_det(pid, form, status)
+        url = self._build_trigger_url(site, 'notfoo')
+        r = self.factory.post(url, data=det)
+        project, post_data, t = filter_request_for_trigger(r, site)
+        self.assertIsNone(project)
+        self.assertIsNone(t)
+
     def test_trigger_inactive_trigger(self):
-        "The tirgger filter shouldn't return a trigger when it's inactive"
+        "The trigger filter shouldn't return an inactive trigger"
         pid, site, form, status = '1', 'site1', 'imaging', '2'
         det = get_det(pid, form, status)
         url = '/rch/trigger/%s' % site
@@ -142,7 +156,7 @@ class WorkflowViewTest(TestCase):
         c = Client()
         pid, site, form, status = '1', 'site1', 'demographics', '2'
         det = get_det(pid, form, status)
-        url = '/rch/trigger/%s' % site
+        url = self._build_trigger_url(site, 'foo')
         response = c.post(url, data=det)
         self.assertEqual(response.status_code, 200)
         # Should have a 1 Project, 1 Trigger, and 1 Process records

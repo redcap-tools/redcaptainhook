@@ -45,8 +45,10 @@ def filter_request_for_trigger(request, site=None):
     POST"""
     d = convert_redcap_post_data(request.POST.dict())
     d['site'] = site
+    auth = request.GET.get('auth', '')
     try:
-        p = Project.objects.get(redcap_pid=d['pid'], site=site, active=True)
+        p = Project.objects.get(redcap_pid=d['pid'], site=site, hash=auth,
+            active=True)
     except Project.DoesNotExist:
         # No projects match this request
         # Why are we getting this request?
