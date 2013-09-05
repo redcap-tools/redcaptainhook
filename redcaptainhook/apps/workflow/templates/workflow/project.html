@@ -1,11 +1,36 @@
 {% extends "base.html" %}
-
-{% block title %}{% endblock %}
+{% load workflow_extra %}
 
 {% block body %}
-<h1>Projects</h1>
+<div class="row">
+  <p>
+  <strong>Project:</strong> {{ project.name }} <br />
+  <strong>Site:</strong> {{ project.site }} <br />
+  <strong>REDCap Project ID:</strong> {{ project.redcap_pid }} <br />
+  </p>
+</div>
 
+<div class="col-lg-8 col-lg-offset-2">
+  <h4>Triggers</h4>
+  <table class="table table-condensed">
+    <tr>
+      <th>Form</th>
+      <th>Status</th>
+      <th>Data Access Group</th>
+      <th>Event</th>
+    </tr>
+  {% for t in project.trigger_set.all %}
+    <tr class="{{ t.active|active }}">
+      <td>{{t.form }}</td>
+      <td>{{t.status }}</td>
+      <td>{{t.dag }}</td>
+      <td>{{t.event }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
 
-
-
+<div class="row">
+  <a href="{% url 'workflow:index' %}">Back to project list</a>
+</div>
 {% endblock %}

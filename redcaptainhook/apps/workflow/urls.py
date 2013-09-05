@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^trigger/(?P<site>\w+)', views.TriggerProcessor.as_view(), name='trigger'),
     url(r'^history', views.HistoryView.as_view(), name='history'),
+    url(r'^project/(?P<pk>\d+)', views.ProjectView.as_view(), name="project"),
 )

@@ -79,7 +79,12 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return all projects"""
-        return Project.objects.all().order_by('-redcap_pid')
+        return Project.objects.all().order_by('redcap_pid')
+
+
+class ProjectView(generic.DetailView):
+    model = Project
+    template_name = "workflow/project.html"
 
 
 class TriggerProcessor(generic.TemplateView):
