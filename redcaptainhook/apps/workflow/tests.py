@@ -147,9 +147,9 @@ class WorkflowViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         # Should have a 1 Project, 1 Trigger, and 1 Process records
         self.assertEqual(len(History.objects.all()), 3)
-        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_PROJECT)), 1)
-        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_TRIGGER)), 1)
-        self.assertEqual(len(History.objects.filter(entity=History.ENTITY_PROCESS)), 1)
+        self.assertEqual(len(History.objects.filter(entity_type=History.ENTITY_PROJECT)), 1)
+        self.assertEqual(len(History.objects.filter(entity_type=History.ENTITY_TRIGGER)), 1)
+        self.assertEqual(len(History.objects.filter(entity_type=History.ENTITY_PROCESS)), 1)
 
 
 
