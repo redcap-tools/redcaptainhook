@@ -12,11 +12,20 @@
   </tr>
   {% for item in history_list %}
   <tr>
-    <td>{{ item.entity_type }}</td>
-    <td>{{ item.entity_pk }}</td>
-    <td>{{ item.timestamp|naturaltime }}</td>
+    <td class="entity_type">{{ item.entity_type }}</td>
+    <td class="entity_pk">{{ item.entity_pk }}</td>
+    <td>{{ item.timestamp }}</td>
   </tr>
   {% endfor %}
 </table>
 
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  var foo = 1;
+
+  </script>
 {% endblock %}
