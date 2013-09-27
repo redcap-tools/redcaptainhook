@@ -1,5 +1,7 @@
 # Create your views here.
 
+import json
+
 from django.views import generic
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
@@ -110,3 +112,10 @@ class TriggerProcessor(generic.TemplateView):
         if trigger:
             trigger.activate(post_data)
         return HttpResponse(content=u'Thank you\n', status=200)
+
+
+def history_timeseries(request):
+    et = request.GET.get('entity_type', History.ENTITY_PROJECT)
+    days = request.GET.get('days', 7)
+    ts = History.objects.timeseries_by_day(et, int(days))
+    return HttpResponse(json.dumps(ts), content_type='application/json')

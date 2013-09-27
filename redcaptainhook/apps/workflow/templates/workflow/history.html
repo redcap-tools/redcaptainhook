@@ -3,29 +3,143 @@
 
 {% block title %}Trigger History {% endblock %}
 
-{% block body %}
-<table class="table table-bordered">
-  <tr>
-    <th>Entity Type</th>
-    <th>Entity Identifier</th>
-    <th>Timestamp</th>
-  </tr>
-  {% for item in history_list %}
-  <tr>
-    <td class="entity_type">{{ item.entity_type }}</td>
-    <td class="entity_pk">{{ item.entity_pk }}</td>
-    <td>{{ item.timestamp }}</td>
-  </tr>
-  {% endfor %}
-</table>
+{% block style %}
+{{ block.super }}
+<style>
+.chart rect{
+  stroke: white;
+  fill: steelblue;
+}
 
+text.label {
+  font-size: 14px;
+}
+</style>
 {% endblock %}
 
 {% block js %}
 {{ block.super }}
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script type="text/javascript">
-  var foo = 1;
+  function visualize(ts) {
+    var margin = {top: 40, right: 40, bottom: 80, left:60};
+    var width = 960;
+    var height = 500;
+
+    var beg = new Date(ts[0].time);
+    var end = new Date(ts[ts.length - 1].time);
+
+    var x = d3.time.scale()
+        .domain([beg, d3.time.day.offset(end, 1)])
+        .rangeRound([0, width - margin.left - margin.right]);
+
+
+    var y = d3.scale.linear()
+              .domain([d3.min(ts, function(d) {return d.count;}), d3.max(ts, function(d) { return d.count; })])
+              .range([height - margin.top - margin.bottom, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient('bottom')
+        .ticks(d3.time.days, 1)
+        .tickFormat(d3.time.format('%m/%d'))
+        .tickSize(2)
+        .tickPadding(0);
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient('left')
+        .tickSize(2)
+        .tickPadding(0);
+
+    // Add SVG
+    var svg = d3.select('body div.main').append('svg')
+        .attr('class', 'chart')
+        .attr('width', width)
+        .attr('height', height)
+      .append('g')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+
+    // Background lines
+    svg.selectAll(".chart")
+         .data(y.ticks(10))
+       .enter().append("line")
+         .attr("x1", 0)
+         .attr("x2", width - margin.right - margin.left)
+         .attr("y1", y)
+         .attr("y2", y)
+         .style("stroke", "#ccc");
+
+    // Bars
+    var barWidth = width / (ts.length * 1.25);
+
+    svg.selectAll('.chart')
+       .data(ts)
+       .enter().append('rect')
+       .attr('class', 'bar')
+       .attr('x', function(d) { return x(new Date(d.time)); })
+       .attr('y', function(d) { return height - margin.top - margin.bottom - (height - margin.top   - margin.bottom - y(d.count)) })
+       .attr('width', barWidth)
+       .attr('height', function(d) { return height - margin.top - margin.bottom - y(d.count) });
+
+    var textDx = barWidth * .6;
+
+    // Bar labels
+    svg.selectAll(".chart")
+       .data(ts)
+       .enter().append("text")
+       .attr("x", function(d) { return x(new Date(d.time)); })
+       .attr("y", function(d) { return height - margin.top - margin.bottom - (height - margin.top   - margin.bottom - y(d.count)) })
+       .attr("dx", textDx)
+       .attr("dy", -5)
+       .attr("text-anchor", "end")
+       .text(function(d) { return d.count });
+
+    // X-Axis
+    var axisLabelDx = barWidth / 4;
+    svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom) + ')')
+        .call(xAxis)
+        .selectAll("text")
+        .attr("dx", -25)
+        .attr("dy", axisLabelDx)
+        .attr("transform", "rotate(-90)");
+
+    // Y-Axis
+    svg.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis)
+      .selectAll("text")
+      .attr("dx", -10);
+
+    // X-Axis Label
+    svg.append("text")
+       .attr("class", "x label")
+       .attr("text-anchor", "middle")
+       .attr("x", width * .5)
+       .attr("y", height * .9)
+       .text("Day");
+
+    // Y-Axis Label
+    svg.append("text")
+       .attr("class", "y label")
+       .attr("transform", "rotate(-90)")
+       .attr("x", height * -.5)
+       .attr("y", width * -.035)
+       .text("Triggers / Day");
+}
+
+  var api_url = "api/history"
+  if (window.location.search) {
+    api_url += window.location.search
+  }
+  d3.json(api_url, function(error, json) {
+    ts = json;
+    visualize(json);
+  });
+
 
   </script>
 {% endblock %}

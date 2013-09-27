@@ -9,12 +9,26 @@ __author__ = 'Scott Burns <scott.s.burns@vanderbilt.edu>'
 __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
 
+import datetime
+
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from qsstats import QuerySetStats
 import django_rq
 
+
+class HistoryManager(models.Manager):
+    def timeseries_by_day(self, entity_type, days_ago=7):
+        now = datetime.date.today()
+        beg_day = now - datetime.timedelta(days=days_ago)
+        qs = super(HistoryManager, self).filter(entity_type=entity_type)
+        ts = QuerySetStats(qs, 'timestamp').time_series(beg_day, now)
+        ret = []
+        for dt, count in ts:
+            ret.append({'time':dt.isoformat(), 'count': count})
+        return ret
 
 class History(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -27,6 +41,7 @@ class History(models.Model):
         (ENTITY_PROCESS, 'Process'),)
     entity_type = models.IntegerField(choices=ENTITY_CHOICES, default=ENTITY_PROJECT)
     entity_pk = models.IntegerField(default=0)
+    objects = HistoryManager()
 
 
 class Trigger(models.Model):
