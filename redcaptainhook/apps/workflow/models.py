@@ -10,6 +10,9 @@ __copyright__ = 'Copyright 2013 Vanderbilt University. All Rights Reserved'
 
 
 import datetime
+from hashlib import sha1
+from string import printable
+from random import choice
 
 from django.db import models
 from django.conf import settings
@@ -96,12 +99,17 @@ class Project(models.Model):
     name = models.CharField(max_length=50)
     site = models.CharField(max_length=40, default="vanderbilt")
     redcap_pid = models.IntegerField(default=0)
-    hash = models.CharField(max_length=50, default=None)
+    hash = models.CharField(max_length=50, default=None, blank=True)
     active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["redcap_pid"]
         unique_together = (('site', 'redcap_pid'))
+
+    def save(self, *args, **kwargs):
+        if not self.hash:
+            self.hash = sha1(''.join([choice(printable) for _ in range(50)])).hexdigest()
+        super(Project, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return "<Project(%s, %s, %d)>" % (self.site, self.name, self.redcap_pid)
